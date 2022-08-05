@@ -1,0 +1,40 @@
+{% extends 'base.html'%}
+
+{% block body %}
+{%block css%}
+<style>
+    .card{
+        margin:10px;
+        display:flex;
+    }
+</style>
+{%endblock css%}
+<div class="container">
+    <div class="row">
+        {%for i in page_obj.object_list %}
+        <div class="card ">
+            <img src="{{i.urlToImage}}" class="card-img-top" alt="..." width="200" height="200">
+            <div class="card-body">
+              <h5 class="card-title">{{i.title}}</h5>
+              <p class="card-text">{{i.description | slice:"0:200"}}</p>
+              <a href="{{i.url}}" class="btn btn-primary">Read News</a>
+            </div>
+          </div>
+          {% endfor%}
+    </div>
+</div>
+<center>
+    {% if page_obj.has_previous%}
+    <a href="?page={{page_obj.previous_page_number}}"><</a>
+    {% endif %}
+  
+    <span>
+      {{page_obj.number}}
+    </span>
+  
+    {% if page_obj.has_next%}
+    <a href="?page={{page_obj.next_page_number}}">></a>
+  
+    {% endif %}
+  </center>
+{% endblock body%}
